@@ -1,11 +1,11 @@
 # EzMap
 
-EzMap is a beginner-friendly tool designed to make Nmap easier to use by providing an interactive terminal interface with checkboxes and helpful descriptions for each option.
+EzMap is a beginner-friendly tool designed to make Nmap easier to use by providing an interactive terminal interface.
+(Still under development with some bugs)
 
 ## Features
 - Interactive menu for selecting scan types and intensities.
-- Beginner-friendly descriptions for each scan type and intensity.
-- Shows the Nmap command being run, helping users learn while scanning.
+- Beginner-friendly descriptions for each scan type and intensity. 
 - Option to save scan results to a file.
 - Displays estimated scan time for user convenience.
 
