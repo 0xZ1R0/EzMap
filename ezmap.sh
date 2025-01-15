@@ -1,5 +1,14 @@
 #!/bin/bash
-# EzMap - Beginner-friendly Nmap Assistant
+#
+#	███████╗███████╗███╗   ███╗ █████╗ ██████╗ 
+#	██╔════╝╚══███╔╝████╗ ████║██╔══██╗██╔══██╗
+#	█████╗    ███╔╝ ██╔████╔██║███████║██████╔╝
+#	██╔══╝   ███╔╝  ██║╚██╔╝██║██╔══██║██╔═══╝ 
+#	███████╗███████╗██║ ╚═╝ ██║██║  ██║██║     
+#	╚══════╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  
+#          Beginner-friendly Nmap Assistant
+#                Created by 0xZ1R0
+
 
 if ! command -v dialog &> /dev/null; then
     echo "The 'dialog' tool is required but not installed. Please install it and try again."
@@ -21,21 +30,8 @@ show_menu() {
 }
 
 perform_scan() {
-    echo " 
-███████╗███████╗███╗   ███╗ █████╗ ██████╗ 
-██╔════╝╚══███╔╝████╗ ████║██╔══██╗██╔══██╗
-█████╗    ███╔╝ ██╔████╔██║███████║██████╔╝
-██╔══╝   ███╔╝  ██║╚██╔╝██║██╔══██║██╔═══╝ 
-███████╗███████╗██║ ╚═╝ ██║██║  ██║██║     
-╚══════╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     
-                                           
-"
-    echo "Welcome to EzMap!"
-    echo "Your easy-to-use Nmap assistant."
-
     TARGET_IP=$(dialog --inputbox "Enter the target IP or hostname:" 8 40 2>&1 >/dev/tty)
     if [ -z "$TARGET_IP" ]; then
-        echo "No target IP or hostname provided. Exiting."
         return
     fi
 
@@ -46,7 +42,6 @@ perform_scan() {
         4 "Full scan - Comprehensive scan" off 2>&1 >/dev/tty)
 
     if [ -z "$SCAN_TYPES" ]; then
-        echo "No scan type selected. Exiting."
         return
     fi
 
@@ -58,7 +53,6 @@ perform_scan() {
         5 "Super Fast scan (potential DoS risk)" off 2>&1 >/dev/tty)
 
     if [ -z "$INTENSITY" ]; then
-        echo "No intensity selected. Exiting."
         return
     fi
 
@@ -82,6 +76,10 @@ perform_scan() {
     esac
 
     OUTPUT_FILE=$(dialog --inputbox "Enter output filename (leave empty for no saving):" 8 40 2>&1 >/dev/tty)
+    if [ $? -ne 0 ]; then
+        return
+    fi
+
     if [ -n "$OUTPUT_FILE" ]; then
         NMAP_CMD+=" -oN $OUTPUT_FILE"
     fi
@@ -101,7 +99,7 @@ show_help() {
 }
 
 show_about() {
-    dialog --msgbox "EzMap - Beginner-friendly Nmap Assistant\n\nVersion: 0.3\nAuthor: 0xZ1R0\n\nEzMap simplifies Nmap scanning for beginners by providing an easy-to-use interface." 10 50
+    dialog --msgbox "EzMap - Beginner-friendly Nmap Assistant\n\nVersion: 0.4\nAuthor: 0xZ1R0\n\nEzMap simplifies Nmap scanning for beginners by providing an easy-to-use interface." 10 50
 }
 
 while true; do
