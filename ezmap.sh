@@ -1,28 +1,39 @@
 #!/bin/bash
-# EzMap - Beginner-friendly Nmap Assistant              
-if ! command -v dialog &> /dev/null; then                   echo "The 'dialog' tool is required but not installed. Please install it and try again."                        exit 1
-fi                                                      
-show_menu() {                                               CHOICE=$(dialog --menu "EzMap - Main Menu" 15 50 3 \
-        1 "Scan" \                                              2 "Help" \
-        3 "About" 2>&1 >/dev/tty)                       
-    case $CHOICE in                                             1) perform_scan ;;
+# EzMap - Beginner-friendly Nmap Assistant
+
+if ! command -v dialog &> /dev/null; then
+    echo "The 'dialog' tool is required but not installed. Please install it and try again."
+    exit 1
+fi
+
+show_menu() {
+    CHOICE=$(dialog --menu "EzMap - Main Menu" 15 50 3 \
+        1 "Scan" \
+        2 "Help" \
+        3 "About" 2>&1 >/dev/tty)
+
+    case $CHOICE in
+        1) perform_scan ;;
         2) show_help ;;
         3) show_about ;;
         *) clear; exit 0 ;;
-    esac                                                }
+    esac
+}
 
 perform_scan() {
-    echo "
-███████╗███████╗███╗   ███╗ █████╗ ██████╗
+    echo " 
+███████╗███████╗███╗   ███╗ █████╗ ██████╗ 
 ██╔════╝╚══███╔╝████╗ ████║██╔══██╗██╔══██╗
 █████╗    ███╔╝ ██╔████╔██║███████║██████╔╝
-██╔══╝   ███╔╝  ██║╚██╔╝██║██╔══██║██╔═══╝
-███████╗███████╗██║ ╚═╝ ██║██║  ██║██║
-╚══════╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝
-
+██╔══╝   ███╔╝  ██║╚██╔╝██║██╔══██║██╔═══╝ 
+███████╗███████╗██║ ╚═╝ ██║██║  ██║██║     
+╚══════╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     
+                                           
 "
-    echo "Welcome to EzMap!"                                echo "Your easy-to-use Nmap assistant."
-                                                            TARGET_IP=$(dialog --inputbox "Enter the target IP or hostname:" 8 40 2>&1 >/dev/tty)
+    echo "Welcome to EzMap!"
+    echo "Your easy-to-use Nmap assistant."
+
+    TARGET_IP=$(dialog --inputbox "Enter the target IP or hostname:" 8 40 2>&1 >/dev/tty)
     if [ -z "$TARGET_IP" ]; then
         echo "No target IP or hostname provided. Exiting."
         return
